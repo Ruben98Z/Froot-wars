@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Froot Wars</title>
+        <script src="Box2dWeb-2.1.a.3.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body onload="init();">
+        <div id="gamecontainer">
+            <canvas id="gamecanvas" width="640" height="480" class="gamelayer"></canvas>
+            
+            <div id="scorescreen" class="gamelayer">
+                <img id="togglemusic" src="images/sound.png" onclick="game.toggleBackgroundMusic();">
+                <img src="images/prev.png " onclick="game.restartLevel();">
+                <span id="score">Score: 0</span>
+            </div>
+            
+            <div id="gamestartscreen" class="gamelayer">
+                <img src="images/play.png" alt="Play Game" onclick="game.showLevelScreen();"></br>
+                <img src="images/settings.png" alt="Settings">
+            </div>
+            
+            <div id="levelselectscreen" class="gamelayer">
+                
+            </div>
+
+            <div id="loadingscreen" class="gamelayer">
+                <div id="loadingmessage"></div>
+            </div>
+
+            <div id="endingscreen" class="gamelayer">
+                <div>
+                    <p id="endingmessage">The level is over message</p>
+                    <p id="playcurrentlevel" onclick="game.restartLevel();"><img src="images/prev.png">Replay Currente Level</p>
+                    <p id="playnextlevel"onclick="game.startNextLevel();"><img src="images/next.png">Play next level Level</p>
+                    <p id="showLevelScreen"onclick="game.showLevelScreen();"><img src="images/return.png">Return to Level screen</p>
+                </div>
+            </div>
+
+
+        </div>
+        <canvas id="debugcanvas" width="1000" height="480" style="border:1px solid black;"></canvas>
+    </body>
+</html>
