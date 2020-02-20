@@ -46,11 +46,11 @@
 }
 
 #loadingmessage{
-    margin-top: 400px;
+    margin-top: 80px;
     text-align: center;
-    height: 48px;
+    height: 400px;
     color:white;
-    background: url(images/loader.gif)no-repeat center;
+    background: url(images/tenor.gif)no-repeat center;
     font-size:12px;
     font-family: Arial;
 }
