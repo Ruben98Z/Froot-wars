@@ -487,7 +487,7 @@ var levels = {
 				{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
 				
 				//Plataforma
-				{type:"block", name:"wood", x:670,y:180,width:340,height:25,isStatic:true},
+				{type:"block", name:"wood", x:670,y:180,width:320,height:25,isStatic:true},
 				
 				//Casa 1
 				{type:"block", name:"glass", x:730,y:117,angle:90,width:100,height:25},
@@ -500,9 +500,9 @@ var levels = {
 				{type:"block", name:"glass", x:573,y:317,angle:-50,width:270,height:25,isStatic:true},
 				{type:"block", name:"glass", x:767,y:317,angle:50,width:270,height:25,isStatic:true},
 
-				{type:"block", name:"wood", x:563,y:405,width:50,height:50,isStatic:true},
+				{type:"block", name:"wood", x:563,y:405,width:50,height:50},
 				{type:"block", name:"wood", x:670,y:405,width:50,height:50},
-				{type:"block", name:"wood", x:777,y:405,width:50,height:50,isStatic:true},
+				{type:"block", name:"wood", x:777,y:405,width:50,height:50},
 				{type:"block", name:"wood", x:670,y:277,width:50,height:50,isStatic:true},
 				
 
@@ -512,6 +512,52 @@ var levels = {
 				{type:"villain", name:"fries",x:670,y:143,calories:420},
 				{type:"villain", name:"burger",x:670,y:355,calories:420},
 				{type:"villain", name:"sodacan",x:570,y:137,calories:420},
+
+
+				{type:"hero", name:"strawberry",x:30,y:415},
+				{type:"hero", name:"orange",x:80,y:405},
+				{type:"hero", name:"apple",x:140,y:405},
+			]
+		},
+		{   // Quinto nivel
+			foreground:'desert-foreground',
+			background:'clouds-background',
+			entities:[
+				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
+				{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
+				
+				//Primer triangulo
+				{type:"block", name:"glass", x:545,y:280,angle:-45,width:100,height:25, isStatic:true},
+				{type:"block", name:"glass", x:455,y:280,angle:45,width:100,height:25, isStatic:true},
+				{type:"block", name:"wood", x:500,y:223,width:150,height:25},
+
+				{type:"block", name:"wood", x:500,y:160,angle:90,width:100,height:25},
+				//Puente
+				{type:"block", name:"wood", x:535,y:65,angle:-45,width:100,height:25},
+				{type:"block", name:"wood", x:629,y:30,width:120,height:25, isStatic:true},
+
+				//Segundo triangulo
+				{type:"block", name:"wood", x:700,y:94,angle:90,width:100,height:25},
+
+				{type:"block", name:"glass", x:805,y:214,angle:-45,width:100,height:25, isStatic:true},
+				{type:"block", name:"glass", x:715,y:214,angle:45,width:100,height:25, isStatic:true},
+				{type:"block", name:"wood", x:760,y:157,width:150,height:25},
+
+
+				//Tercer triangulo
+				{type:"block", name:"glass", x:895,y:328,angle:-45,width:100,height:25, isStatic:true},
+				{type:"block", name:"glass", x:805,y:328,angle:45,width:100,height:25, isStatic:true},
+				{type:"block", name:"wood", x:850,y:271,width:150,height:25, isStatic:true},
+
+				{type:"block", name:"wood", x:890,y:238,angle:90,width:50,height:50},
+				{type:"block", name:"wood", x:820,y:109,angle:90,width:70,height:25},
+
+
+				//Villanos y heroes
+
+				{type:"villain", name:"fries",x:820,y:48,calories:420},
+				{type:"villain", name:"burger",x:890,y:188,calories:420},
+				{type:"villain", name:"sodacan",x:570,y:180,calories:420},
 
 
 				{type:"hero", name:"strawberry",x:30,y:415},
