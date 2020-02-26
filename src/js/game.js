@@ -52,6 +52,12 @@ var game = {
 		//"Kindergarten" by Gurdonark
 		//http://ccmixter.org/files/gurdonark/26491 is licensed under a Creative Commons license
 		game.backgroundMusic = loader.loadSound('audio/gurdonark-kindergarten');
+		game.initialMusic = loader.loadSound('audio/Dragon-Ball-Z-Temas-de-recordatorio-del-capítulo-anterior');
+		game.kakarotMusic = loader.loadSound('audio/Dragon-Ball-Z-Kakarot-OST-SUPER-SAIYAN-3VEGITO-THEME');
+		game.cellMusic = loader.loadSound('audio/DBZ-The-Cell-Games-Theme');
+		game.tenkaichiMusic = loader.loadSound('audio/World-Martial-Arts-Tournament-Theme-Mezase-Tenkaichi');
+		game.krilinexplosion = loader.loadSound('audio/Krillin-explota')
+
 
 		game.slingshotReleasedSound = loader.loadSound("audio/released");
 		game.bounceSound = loader.loadSound('audio/bounce');
@@ -68,27 +74,121 @@ var game = {
 		//Obtener el controlador para el lienzo de juego y el contexto
 		game.canvas = document.getElementById('gamecanvas');
 		game.context = game.canvas.getContext('2d');
-	},	  
+	},
+	//startScreen:function(){
+	//	game.
+	//},	  
 	startBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];	
+		if(game.currentLevel.number==0){
+			
+			game.tenkaichiMusic.play();
+			toggleImage.src="images/sound.png";	
+		}else if(game.currentLevel.number==1){
+				
+			game.backgroundMusic.play();
+			toggleImage.src="images/sound.png";	
+		}else if(game.currentLevel.number==2){
+			
+			game.backgroundMusic.play();
+			toggleImage.src="images/sound.png";	
+		}else if(game.currentLevel.number==3){
+				
+			game.cellMusic.play();
+			toggleImage.src="images/sound.png";	
+		}else if(game.currentLevel.number==4){
+				
+			game.kakarotMusic.play();
+			toggleImage.src="images/sound.png";	
+		}
+		/*var toggleImage = $("#togglemusic")[0];	
 		game.backgroundMusic.play();
-		toggleImage.src="images/sound.png";	
+		toggleImage.src="images/sound.png";	*/
 	},
 	stopBackgroundMusic:function(){
-		var toggleImage = $("#togglemusic")[0];	
-		toggleImage.src="images/nosound.png";	
+		var toggleImage = $("#togglemusic")[0];
+		/*toggleImage.src="images/nosound.png";*/
+		if(game.currentLevel.number==0){
+			
+			toggleImage.src="images/nosound.png";	
+			game.tenkaichiMusic.pause();
+			game.tenkaichiMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+		}else if(game.currentLevel.number==1){
+			toggleImage.src="images/nosound.png";	
+			game.backgroundMusic.pause();
+			game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+		}else if(game.currentLevel.number==2){
+			toggleImage.src="images/nosound.png";
 		game.backgroundMusic.pause();
 		game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+		}else if(game.currentLevel.number==3){
+			toggleImage.src="images/nosound.png";	
+			game.cellMusic.pause();
+			game.cellMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+		}else if(game.currentLevel.number==4){
+			toggleImage.src="images/nosound.png";
+			game.kakarotMusic.pause();
+			game.kakarotMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+		}
+		/*var toggleImage = $("#togglemusic")[0];	
+		toggleImage.src="images/nosound.png";	
+		game.backgroundMusic.pause();
+		game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n*/
 	},
 	toggleBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];
-		if(game.backgroundMusic.paused){
+		if(game.currentLevel.number==0){
+			if(game.tenkaichiMusic.paused){
+				game.tenkaichiMusic.play();
+				toggleImage.src="images/sound.png";
+			} else {
+				game.tenkaichiMusic.pause();	
+				$("#togglemusic")[0].src="images/nosound.png";
+			}
+		}
+		else if(game.currentLevel.number==1){
+			if(game.backgroundMusic.paused){
+				game.backgroundMusic.play();
+				toggleImage.src="images/sound.png";
+			} else {
+				game.backgroundMusic.pause();	
+				$("#togglemusic")[0].src="images/nosound.png";
+			}
+		}
+		else if(game.currentLevel.number==2){
+			if(game.backgroundMusic.paused){
+				game.backgroundMusic.play();
+				toggleImage.src="images/sound.png";
+			} else {
+				game.backgroundMusic.pause();	
+				$("#togglemusic")[0].src="images/nosound.png";
+			}
+		}
+		else if(game.currentLevel.number==3){
+			if(game.cellMusic.paused){
+				game.cellMusic.play();
+				toggleImage.src="images/sound.png";
+			} else {
+				game.cellMusic.pause();	
+				$("#togglemusic")[0].src="images/nosound.png";
+			}
+		}
+		else if(game.currentLevel.number==4){
+			if(game.kakarotMusic.paused){
+				game.kakarotMusic.play();
+				toggleImage.src="images/sound.png";
+			} else {
+				game.kakarotMusic.pause();	
+				$("#togglemusic")[0].src="images/nosound.png";
+			}
+		}
+		/*if(game.backgroundMusic.paused){
 			game.backgroundMusic.play();
 			toggleImage.src="images/sound.png";
 		} else {
 			game.backgroundMusic.pause();	
 			$("#togglemusic")[0].src="images/nosound.png";
-		}
+		}*/
 	},
 	showLevelScreen:function(){
 		$('.gamelayer').hide();
@@ -222,10 +322,25 @@ var game = {
 			//Vista panorÃ¡mica donde el hÃ©roe se encuentra actualmente...
 			var heroX = game.currentHero.GetPosition().x*box2d.scale;
 			game.panTo(heroX);
+			/*if(game.currentLevel.number==1){
+				game.currentHero.IsAwake("krilinaahh");
+				game.krilinexplosion.play();
+				box2d.world.DestroyBody('krilinaahh');
+				game.krilinexplosion.pause();
+				game.currentHero = undefined;
+				// y carga el siguiente hÃ©roe
+				game.mode = "load-next-hero";
+			}*/
 
 			//Y esperar hasta que deja de moverse o estÃ¡ fuera de los lÃ­mites
 			if(!game.currentHero.IsAwake() || heroX<0 || heroX >game.currentLevel.foregroundImage.width ){
 				// Luego borra el viejo hÃ©roe
+				if(game.currentLevel.number==1){
+					
+					game.krilinexplosion.play();
+					box2d.world.DestroyBody('krilinaahh');
+					/*box2d.world.DestroyBody('krilinaahh');*/
+				}
 				box2d.world.DestroyBody(game.currentHero);
 				game.currentHero = undefined;
 				// y carga el siguiente hÃ©roe
@@ -396,8 +511,8 @@ var levels = {
 	// Datos de nivel
 	data:[
 	 {   // Primer nivel 
-		foreground:'desert-foreground',
-		background:'clouds-background',
+		foreground:'budokai',
+		background:'budokai',
 		entities:[
 			{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
 			{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
@@ -437,7 +552,7 @@ var levels = {
 
 				{type:"hero", name:"strawberry",x:30,y:415},
 				{type:"hero", name:"orange",x:80,y:405},
-				{type:"hero", name:"apple",x:140,y:405},
+				{type:"hero", name:"krilinaahh",x:140,y:405},
 			]
 		},
 		{   // Tercer nivel
@@ -476,7 +591,7 @@ var levels = {
 
 				{type:"hero", name:"strawberry",x:30,y:415},
 				{type:"hero", name:"orange",x:80,y:405},
-				{type:"hero", name:"apple",x:140,y:405},
+				{type:"hero", name:"mrsatancabeza",x:140,y:405},
 			]
 		},
 		{   // Cuarto nivel
@@ -682,6 +797,20 @@ var entities = {
 			density:2.0,
 			friction:0.5,
 			restitution:0.4,	
+		},
+		"mrsatancabeza":{
+			shape:"circle",
+			radius:25,
+			density:4.0,
+			friction:0.5,
+			restitution:0.5,
+		},
+		"krilinaahh":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.5,
 		},
 	},
 	// Tomar la entidad, crear un cuerpo box2d y aÃ±adirlo al mundo

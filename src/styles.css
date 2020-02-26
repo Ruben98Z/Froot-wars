@@ -1,7 +1,7 @@
 #gamecontainer{
     width: 640px;
     height: 480px;
-    background: url(images/splashscreen.png);
+    background: url(images/dragon-ball-z-16145-1366x768-510720-1024x576.png)no-repeat;
     border: 1px solid black;
 }
 
@@ -24,14 +24,19 @@
 }
 
 #levelselectscreen{
-    padding-top:150px;
+    padding-top: 150px;
     padding-left: 50px;
+    width: 590px;
+    height: 330px;
+    background: url(images/maxresdefault12.png)no-repeat;
+    border: 1px solid black;
+
 }
 
 #levelselectscreen input{
     margin:20px;
     cursor:pointer;
-    background: url(images/level.png)no-repeat;
+    background: url(images/radar.png)no-repeat;
     color:yellow;
     font-size:20px;
     width: 64px;
