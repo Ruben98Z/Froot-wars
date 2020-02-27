@@ -56,7 +56,7 @@ var game = {
 		game.kakarotMusic = loader.loadSound('audio/Dragon-Ball-Z-Kakarot-OST-SUPER-SAIYAN-3VEGITO-THEME');
 		game.cellMusic = loader.loadSound('audio/DBZ-The-Cell-Games-Theme');
 		game.tenkaichiMusic = loader.loadSound('audio/World-Martial-Arts-Tournament-Theme-Mezase-Tenkaichi');
-		game.krilinexplosion = loader.loadSound('audio/Krillin-explota')
+		game.krilinexplosion = loader.loadSound('audio/Krillin-explota');
 
 
 		game.slingshotReleasedSound = loader.loadSound("audio/released");
@@ -512,7 +512,7 @@ var levels = {
 	data:[
 	 {   // Primer nivel 
 		foreground:'budokai',
-		background:'budokai',
+		background:'clouds-background',
 		entities:[
 			{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
 			{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
@@ -602,7 +602,7 @@ var levels = {
 				{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
 				
 				//Plataforma
-				{type:"block", name:"wood", x:670,y:180,width:320,height:25,isStatic:true},
+				{type:"block", name:"glass", x:670,y:180,width:320,height:25,isStatic:true},
 				
 				//Casa 1
 				{type:"block", name:"glass", x:730,y:117,angle:90,width:100,height:25},
@@ -800,14 +800,14 @@ var entities = {
 		},
 		"mrsatancabeza":{
 			shape:"circle",
-			radius:25,
+			radius:20,
 			density:4.0,
 			friction:0.5,
 			restitution:0.5,
 		},
 		"krilinaahh":{
 			shape:"circle",
-			radius:25,
+			radius:20,
 			density:1.5,
 			friction:0.5,
 			restitution:0.5,
