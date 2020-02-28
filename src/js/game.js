@@ -143,20 +143,20 @@ var game = {
 			}
 		}
 		else if(game.currentLevel.number==1){
-			if(game.backgroundMusic.paused){
-				game.backgroundMusic.play();
+			if(game.saiyanMusic.paused){
+				game.saiyanMusic.play();
 				toggleImage.src="images/sound.png";
 			} else {
-				game.backgroundMusic.pause();	
+				game.saiyanMusic.pause();	
 				$("#togglemusic")[0].src="images/nosound.png";
 			}
 		}
 		else if(game.currentLevel.number==2){
-			if(game.backgroundMusic.paused){
-				game.backgroundMusic.play();
+			if(game.freezer.paused){
+				game.freezer.play();
 				toggleImage.src="images/sound.png";
 			} else {
-				game.backgroundMusic.pause();	
+				game.game.freezer.pause();	
 				$("#togglemusic")[0].src="images/nosound.png";
 			}
 		}
