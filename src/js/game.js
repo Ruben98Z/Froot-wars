@@ -112,30 +112,24 @@ var game = {
 		/*toggleImage.src="images/nosound.png";*/
 		if(game.currentLevel.number==0){
 			
-			toggleImage.src="images/nosound.png";	
+
 			game.tenkaichiMusic.pause();
 			game.tenkaichiMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
-		}else if(game.currentLevel.number==1){
-			toggleImage.src="images/nosound.png";	
+		}else if(game.currentLevel.number==1){	
 			game.saiyanMusic.pause();
 			game.saiyanMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==2){
-			toggleImage.src="images/nosound.png";
 			game.freezer.pause();
 			game.freezer.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==3){
-			toggleImage.src="images/nosound.png";	
 			game.cellMusic.pause();
 			game.cellMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==4){
-			toggleImage.src="images/nosound.png";
 			game.kakarotMusic.pause();
 			game.kakarotMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}
-		/*var toggleImage = $("#togglemusic")[0];	
-		toggleImage.src="images/nosound.png";	
-		game.backgroundMusic.pause();
-		game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n*/
+		toggleImage.src="images/nosound.png";
+
 	},
 	toggleBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];
@@ -149,8 +143,8 @@ var game = {
 			}
 		}
 		else if(game.currentLevel.number==1){
-			if(game.saiyanMusic.paused){
-				game.saiyanMusic.play();
+			if(game.backgroundMusic.paused){
+				game.backgroundMusic.play();
 				toggleImage.src="images/sound.png";
 			} else {
 				game.backgroundMusic.pause();	
@@ -158,8 +152,8 @@ var game = {
 			}
 		}
 		else if(game.currentLevel.number==2){
-			if(game.freezer.paused){
-				game.freezer.play();
+			if(game.backgroundMusic.paused){
+				game.backgroundMusic.play();
 				toggleImage.src="images/sound.png";
 			} else {
 				game.backgroundMusic.pause();	
@@ -184,17 +178,30 @@ var game = {
 				$("#togglemusic")[0].src="images/nosound.png";
 			}
 		}
-		/*if(game.backgroundMusic.paused){
-			game.backgroundMusic.play();
-			toggleImage.src="images/sound.png";
-		} else {
-			game.backgroundMusic.pause();	
-			$("#togglemusic")[0].src="images/nosound.png";
-		}*/
+
 	},
 	showLevelScreen:function(){
+		var html = "";
+		//Actualizo la pantalla de seleccion de nivel
+		for (var i=0; i < levels.data.length; i++) {
+			var level = levels.data[i];
+			if(levelsUnlocked[i]==1){
+				html += '<input type="button" value="'+(i+1)+'">';
+			}else{
+				html += '<img src="images/candado.png" value="'+(i+1)+'" class="candado">'
+			}
+		};
 		$('.gamelayer').hide();
+		$('#levelselectscreen').html(html);
 		$('#levelselectscreen').show('slow');
+		//En el caso de que se haya pasado algun nivel se habilita el siguiente
+		$('#levelselectscreen input').click(function(){
+			if(levelsUnlocked[this.value-1] == 1){
+				levels.load(this.value-1);
+				$('#levelselectscreen').hide();
+			}
+
+		});
 	},
 	restartLevel:function(){
 		window.cancelAnimationFrame(game.animationFrame);		
@@ -324,25 +331,11 @@ var game = {
 			//Vista panorÃ¡mica donde el hÃ©roe se encuentra actualmente...
 			var heroX = game.currentHero.GetPosition().x*box2d.scale;
 			game.panTo(heroX);
-			/*if(game.currentLevel.number==1){
-				game.currentHero.IsAwake("krilinaahh");
-				game.krilinexplosion.play();
-				box2d.world.DestroyBody('krilinaahh');
-				game.krilinexplosion.pause();
-				game.currentHero = undefined;
-				// y carga el siguiente hÃ©roe
-				game.mode = "load-next-hero";
-			}*/
 
 			//Y esperar hasta que deja de moverse o estÃ¡ fuera de los lÃ­mites
 			if(!game.currentHero.IsAwake() || heroX<0 || heroX >game.currentLevel.foregroundImage.width ){
 				// Luego borra el viejo hÃ©roe
-				/*if(game.currentLevel.number==1){
-					
-					game.krilinexplosion.play();
-					box2d.world.DestroyBody('krilinaahh');
-					box2d.world.DestroyBody('krilinaahh');
-				}*/
+
 				box2d.world.DestroyBody(game.currentHero);
 				game.currentHero = undefined;
 				// y carga el siguiente hÃ©roe
@@ -396,6 +389,9 @@ var game = {
 			if (game.mode=="level-success"){			
 				if(game.currentLevel.number<levels.data.length-1){
 					game.initialMusic.play();
+					//Se desbloquea el siguiente nivel
+					var next = game.currentLevel.number+1;
+					levelsUnlocked[next] = 1;
 					$('#endingmessage').html('Level Complete. Well Done!!!');
 					$("#playnextlevel").show();
 				} else {
@@ -513,6 +509,7 @@ var game = {
 	},
 
 }
+var levelsUnlocked = [];
 
 var levels = {
 	// Datos de nivel
@@ -692,17 +689,33 @@ var levels = {
 	// Inicializar pantalla de selecciÃ³n de nivel
 	init:function(){
 		var html = "";
-		for (var i=0; i < levels.data.length; i++) {
+		//Se inicializa el array que muestra que niveles estan disponibles para jugar
+		for (var i = 0; i < levels.data.length; i++) {
+			if(i==0){
+				levelsUnlocked[i]=1;
+			}else{
+				levelsUnlocked[i]=0;
+			}
+		}
+
+		/*for (var i=0; i < levels.data.length; i++) {
 			var level = levels.data[i];
-			html += '<input type="button" value="'+(i+1)+'">';
+			if(levelsUnlocked[i]==1){
+				html += '<input type="button" value="'+(i+1)+'">';
+			}else{
+				html += '<img src="images/candado.png" value="'+(i+1)+'">'
+			}
 		};
-		$('#levelselectscreen').html(html);
+		$('#levelselectscreen').html(html);*/
 		
 		// Establecer los controladores de eventos de clic de botÃ³n para cargar el nivel
-		$('#levelselectscreen input').click(function(){
-			levels.load(this.value-1);
-			$('#levelselectscreen').hide();
-		});
+		/*$('#levelselectscreen input').click(function(){
+			if(levelsUnlocked[this.value-1] == 1){
+				levels.load(this.value-1);
+				$('#levelselectscreen').hide();
+			}
+
+		});*/
 	},
 
 	   // Cargar todos los datos e imÃ¡genes para un nivel especÃ­fico

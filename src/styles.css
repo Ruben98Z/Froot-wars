@@ -36,13 +36,22 @@
 #levelselectscreen input{
     margin:20px;
     cursor:pointer;
-    background: url(images/radar.png)no-repeat;
+    background: url("images/radar.png")no-repeat;
     color:yellow;
     font-size:20px;
     width: 64px;
     height: 64px;
     border:0;
 }
+
+img.candado{
+    margin:20px;
+    width: 60px;
+    height: 60px;
+    border:0;
+}
+
+
 
 /*Pantalla de carga*/
 #loadingscreen{
