@@ -52,12 +52,14 @@ var game = {
 		//"Kindergarten" by Gurdonark
 		//http://ccmixter.org/files/gurdonark/26491 is licensed under a Creative Commons license
 		game.backgroundMusic = loader.loadSound('audio/gurdonark-kindergarten');
+		game.saiyanMusic = loader.loadSound('audio/Dragon-Ball-Z-Saiyan-Saga-original-soundtrack')
 		game.initialMusic = loader.loadSound('audio/Dragon-Ball-Z-Temas-de-recordatorio-del-capítulo-anterior');
 		game.kakarotMusic = loader.loadSound('audio/Dragon-Ball-Z-Kakarot-OST-SUPER-SAIYAN-3VEGITO-THEME');
 		game.cellMusic = loader.loadSound('audio/DBZ-The-Cell-Games-Theme');
 		game.tenkaichiMusic = loader.loadSound('audio/World-Martial-Arts-Tournament-Theme-Mezase-Tenkaichi');
 		game.krilinexplosion = loader.loadSound('audio/Krillin-explota');
-
+		game.wilhelm = loader.loadSound('audio/WilhelmScream');
+		game.freezer = loader.loadSound('audio/FreezerTheme')
 
 		game.slingshotReleasedSound = loader.loadSound("audio/released");
 		game.bounceSound = loader.loadSound('audio/bounce');
@@ -86,11 +88,11 @@ var game = {
 			toggleImage.src="images/sound.png";	
 		}else if(game.currentLevel.number==1){
 				
-			game.backgroundMusic.play();
+			game.saiyanMusic.play();
 			toggleImage.src="images/sound.png";	
 		}else if(game.currentLevel.number==2){
 			
-			game.backgroundMusic.play();
+			game.freezer.play();
 			toggleImage.src="images/sound.png";	
 		}else if(game.currentLevel.number==3){
 				
@@ -115,12 +117,12 @@ var game = {
 			game.tenkaichiMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==1){
 			toggleImage.src="images/nosound.png";	
-			game.backgroundMusic.pause();
-			game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+			game.saiyanMusic.pause();
+			game.saiyanMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==2){
 			toggleImage.src="images/nosound.png";
-		game.backgroundMusic.pause();
-		game.backgroundMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
+			game.freezer.pause();
+			game.freezer.currentTime = 0; // Ir al comienzo de la canciÃ³n
 		}else if(game.currentLevel.number==3){
 			toggleImage.src="images/nosound.png";	
 			game.cellMusic.pause();
@@ -147,8 +149,8 @@ var game = {
 			}
 		}
 		else if(game.currentLevel.number==1){
-			if(game.backgroundMusic.paused){
-				game.backgroundMusic.play();
+			if(game.saiyanMusic.paused){
+				game.saiyanMusic.play();
 				toggleImage.src="images/sound.png";
 			} else {
 				game.backgroundMusic.pause();	
@@ -156,8 +158,8 @@ var game = {
 			}
 		}
 		else if(game.currentLevel.number==2){
-			if(game.backgroundMusic.paused){
-				game.backgroundMusic.play();
+			if(game.freezer.paused){
+				game.freezer.play();
 				toggleImage.src="images/sound.png";
 			} else {
 				game.backgroundMusic.pause();	
@@ -335,12 +337,12 @@ var game = {
 			//Y esperar hasta que deja de moverse o estÃ¡ fuera de los lÃ­mites
 			if(!game.currentHero.IsAwake() || heroX<0 || heroX >game.currentLevel.foregroundImage.width ){
 				// Luego borra el viejo hÃ©roe
-				if(game.currentLevel.number==1){
+				/*if(game.currentLevel.number==1){
 					
 					game.krilinexplosion.play();
 					box2d.world.DestroyBody('krilinaahh');
-					/*box2d.world.DestroyBody('krilinaahh');*/
-				}
+					box2d.world.DestroyBody('krilinaahh');
+				}*/
 				box2d.world.DestroyBody(game.currentHero);
 				game.currentHero = undefined;
 				// y carga el siguiente hÃ©roe
@@ -393,9 +395,11 @@ var game = {
 			game.stopBackgroundMusic();				
 			if (game.mode=="level-success"){			
 				if(game.currentLevel.number<levels.data.length-1){
+					game.initialMusic.play();
 					$('#endingmessage').html('Level Complete. Well Done!!!');
 					$("#playnextlevel").show();
 				} else {
+					game.initialMusic.play();
 					$('#endingmessage').html('All Levels Complete. Well Done!!!');
 					$("#playnextlevel").hide();
 				}
@@ -456,6 +460,9 @@ var game = {
 			if(entity){
 				var entityX = body.GetPosition().x*box2d.scale;
 				if(entityX<0|| entityX>game.currentLevel.foregroundImage.width||(entity.health && entity.health <0)){
+					if(entity.type=='villain'){
+						game.wilhelm.play();
+					}
 					box2d.world.DestroyBody(body);
 					if (entity.type=="villain"){
 						game.score += entity.calories;
@@ -519,18 +526,18 @@ var levels = {
 
 			{type:"block", name:"wood", x:520,y:380,angle:90,width:100,height:25},
 			{type:"block", name:"glass", x:520,y:280,angle:90,width:100,height:25},								
-			{type:"villain", name:"burger",x:520,y:205,calories:590},
+			{type:"villain", name:"tenshinhan",x:520,y:205,calories:590},
 
 			{type:"block", name:"wood", x:620,y:380,angle:90,width:100,height:25},
 			{type:"block", name:"glass", x:620,y:280,angle:90,width:100,height:25},								
-			{type:"villain", name:"fries", x:620,y:205,calories:420},				
+			{type:"villain", name:"piccolo", x:620,y:205,calories:420},				
 
-			{type:"hero", name:"orange",x:80,y:405},
-			{type:"hero", name:"apple",x:140,y:405},
+			{type:"hero", name:"krilinaahh",x:80,y:405},
+			{type:"hero", name:"Gokuson",x:140,y:405},
 		]
 	 },
 		{   // Segundo nivel
-			foreground:'desert-foreground',
+			foreground:'gokuHo',
 			background:'clouds-background',
 			entities:[
 				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
@@ -546,17 +553,17 @@ var levels = {
 				{type:"block", name:"glass", x:770,y:255,angle:90,width:100,height:25},
 				{type:"block", name:"wood", x:720,y:192.5,width:100,height:25},	
 
-				{type:"villain", name:"burger",x:715,y:155,calories:590},
-				{type:"villain", name:"fries",x:670,y:405,calories:420},
-				{type:"villain", name:"sodacan",x:765,y:400,calories:150},
+				{type:"villain", name:"Nappa",x:715,y:155,calories:590},
+				{type:"villain", name:"Vegetta",x:670,y:405,calories:420},
+				{type:"villain", name:"saibaman",x:765,y:400,calories:150},
 
-				{type:"hero", name:"strawberry",x:30,y:415},
-				{type:"hero", name:"orange",x:80,y:405},
+				{type:"hero", name:"Gokuson",x:30,y:415},
+				{type:"hero", name:"Yamcha",x:80,y:405},
 				{type:"hero", name:"krilinaahh",x:140,y:405},
 			]
 		},
 		{   // Tercer nivel
-			foreground:'desert-foreground',
+			foreground:'EarthLandscape',
 			background:'clouds-background',
 			entities:[
 				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
@@ -584,18 +591,18 @@ var levels = {
 
 
 
-				{type:"villain", name:"fries",x:670,y:405,calories:420},
-				{type:"villain", name:"burger",x:920,y:305,calories:420},
-				{type:"villain", name:"sodacan",x:870,y:175,calories:420},
+				{type:"villain", name:"appule",x:670,y:405,calories:420},
+				{type:"villain", name:"Kingcold",x:920,y:305,calories:420},
+				{type:"villain", name:"mechafreezer",x:870,y:175,calories:420},
 
 
 				{type:"hero", name:"strawberry",x:30,y:415},
-				{type:"hero", name:"orange",x:80,y:405},
-				{type:"hero", name:"mrsatancabeza",x:140,y:405},
+				{type:"hero", name:"mrsatancabeza",x:80,y:405},
+				{type:"hero", name:"trunks",x:140,y:405},
 			]
 		},
 		{   // Cuarto nivel
-			foreground:'desert-foreground',
+			foreground:'cellArena',
 			background:'clouds-background',
 			entities:[
 				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
@@ -624,18 +631,18 @@ var levels = {
 
 
 
-				{type:"villain", name:"fries",x:670,y:143,calories:420},
-				{type:"villain", name:"burger",x:670,y:355,calories:420},
-				{type:"villain", name:"sodacan",x:570,y:137,calories:420},
+				{type:"villain", name:"cell",x:670,y:143,calories:420},
+				{type:"villain", name:"celljr",x:670,y:355,calories:420},
+				{type:"villain", name:"celljr",x:570,y:137,calories:420},
 
 
-				{type:"hero", name:"strawberry",x:30,y:415},
-				{type:"hero", name:"orange",x:80,y:405},
-				{type:"hero", name:"apple",x:140,y:405},
+				{type:"hero", name:"VegetaSS",x:30,y:415},
+				{type:"hero", name:"GohanSS",x:80,y:405},
+				{type:"hero", name:"trunks",x:140,y:405},
 			]
 		},
 		{   // Quinto nivel
-			foreground:'desert-foreground',
+			foreground:'kaiPlanet',
 			background:'clouds-background',
 			entities:[
 				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
@@ -670,14 +677,14 @@ var levels = {
 
 				//Villanos y heroes
 
-				{type:"villain", name:"fries",x:820,y:48,calories:420},
-				{type:"villain", name:"burger",x:890,y:188,calories:420},
-				{type:"villain", name:"sodacan",x:570,y:180,calories:420},
+				{type:"villain", name:"kidbuu",x:820,y:48,calories:420},
+				{type:"villain", name:"buumalo",x:890,y:188,calories:420},
+				{type:"villain", name:"dabra",x:570,y:180,calories:420},
 
 
-				{type:"hero", name:"strawberry",x:30,y:415},
-				{type:"hero", name:"orange",x:80,y:405},
-				{type:"hero", name:"apple",x:140,y:405},
+				{type:"hero", name:"GotenksSS",x:30,y:415},
+				{type:"hero", name:"GohanU",x:80,y:405},
+				{type:"hero", name:"vegetto",x:140,y:405},
 			]
 		}
 	],
@@ -768,6 +775,15 @@ var entities = {
 			friction:0.5,
 			restitution:0.7,	
 		},
+		"Vegetta":{
+			shape:"rectangle",
+			fullHealth:80,
+			width:40,
+			height:60,
+			density:1,
+			friction:0.5,
+			restitution:0.7,	
+		},
 		"fries":{
 			shape:"rectangle",
 			fullHealth:50,
@@ -776,6 +792,105 @@ var entities = {
 			density:1,
 			friction:0.5,
 			restitution:0.6,	
+		},
+		"tenshinhan":{
+			shape:"circle",
+			fullHealth:40,
+			radius:25,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"piccolo":{
+			shape:"circle",
+			fullHealth:40,
+			radius:25,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"mechafreezer":{
+			shape:"circle",
+			fullHealth:80,
+			radius:35,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"Kingcold":{
+			shape:"circle",
+			fullHealth:80,
+			radius:30,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"appule":{
+			shape:"rectangle",
+			fullHealth:70,
+			width:50,
+			height:50,
+			density:1,
+			friction:0.5,
+			restitution:0.6,	
+		},
+		"cell":{
+			shape:"rectangle",
+			fullHealth:70,
+			width:50,
+			height:50,
+			density:1,
+			friction:0.5,
+			restitution:0.6,	
+		},
+		"celljr":{
+			shape:"circle",
+			fullHealth:40,
+			radius:25,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"Nappa":{
+			shape:"circle",
+			fullHealth:40,
+			radius:25,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"saibaman":{
+			shape:"circle",
+			fullHealth:40,
+			radius:15,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"dabra":{
+			shape:"rectangle",
+			fullHealth:70,
+			width:50,
+			height:50,
+			density:1,
+			friction:0.5,
+			restitution:0.6,	
+		},
+		"buumalo":{
+			shape:"circle",
+			fullHealth:80,
+			radius:35,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
+		},
+		"kidbuu":{
+			shape:"circle",
+			fullHealth:60,
+			radius:25,
+			density:1,
+			friction:0.5,
+			restitution:0.4,
 		},
 		"apple":{
 			shape:"circle",
@@ -801,7 +916,7 @@ var entities = {
 		"mrsatancabeza":{
 			shape:"circle",
 			radius:20,
-			density:4.0,
+			density:2.0,
 			friction:0.5,
 			restitution:0.5,
 		},
@@ -811,6 +926,62 @@ var entities = {
 			density:1.5,
 			friction:0.5,
 			restitution:0.5,
+		},
+		"GohanSS":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"trunks":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"vegetto":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"Gokuson":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"Yamcha":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"GohanU":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"GotenksSS":{
+			shape:"circle",
+			radius:20,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
+		},
+		"VegetaSS":{
+			shape:"circle",
+			radius:25,
+			density:1.5,
+			friction:0.5,
+			restitution:0.4,	
 		},
 	},
 	// Tomar la entidad, crear un cuerpo box2d y aÃ±adirlo al mundo
