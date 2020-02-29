@@ -82,36 +82,23 @@ var game = {
 	//},	  
 	startBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];	
-		if(game.currentLevel.number==0){
-			
+		if(game.currentLevel.number==0){			
 			game.tenkaichiMusic.play();
-			toggleImage.src="images/sound.png";	
-		}else if(game.currentLevel.number==1){
-				
+		}else if(game.currentLevel.number==1){			
 			game.saiyanMusic.play();
-			toggleImage.src="images/sound.png";	
 		}else if(game.currentLevel.number==2){
-			
 			game.freezer.play();
-			toggleImage.src="images/sound.png";	
-		}else if(game.currentLevel.number==3){
-				
+		}else if(game.currentLevel.number==3){			
 			game.cellMusic.play();
-			toggleImage.src="images/sound.png";	
 		}else if(game.currentLevel.number==4){
-				
 			game.kakarotMusic.play();
-			toggleImage.src="images/sound.png";	
 		}
-		/*var toggleImage = $("#togglemusic")[0];	
-		game.backgroundMusic.play();
-		toggleImage.src="images/sound.png";	*/
+		toggleImage.src="images/sound.png";	
 	},
 	stopBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];
 		/*toggleImage.src="images/nosound.png";*/
 		if(game.currentLevel.number==0){
-			
 
 			game.tenkaichiMusic.pause();
 			game.tenkaichiMusic.currentTime = 0; // Ir al comienzo de la canciÃ³n
@@ -195,6 +182,7 @@ var game = {
 		$('#levelselectscreen').html(html);
 		$('#levelselectscreen').show('slow');
 		//En el caso de que se haya pasado algun nivel se habilita el siguiente
+		// Establecer los controladores de eventos de clic de botÃ³n para cargar el nivel
 		$('#levelselectscreen input').click(function(){
 			if(levelsUnlocked[this.value-1] == 1){
 				levels.load(this.value-1);
@@ -697,25 +685,6 @@ var levels = {
 				levelsUnlocked[i]=0;
 			}
 		}
-
-		/*for (var i=0; i < levels.data.length; i++) {
-			var level = levels.data[i];
-			if(levelsUnlocked[i]==1){
-				html += '<input type="button" value="'+(i+1)+'">';
-			}else{
-				html += '<img src="images/candado.png" value="'+(i+1)+'">'
-			}
-		};
-		$('#levelselectscreen').html(html);*/
-		
-		// Establecer los controladores de eventos de clic de botÃ³n para cargar el nivel
-		/*$('#levelselectscreen input').click(function(){
-			if(levelsUnlocked[this.value-1] == 1){
-				levels.load(this.value-1);
-				$('#levelselectscreen').hide();
-			}
-
-		});*/
 	},
 
 	   // Cargar todos los datos e imÃ¡genes para un nivel especÃ­fico
