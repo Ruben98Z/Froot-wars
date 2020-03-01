@@ -143,7 +143,7 @@ var game = {
 				game.freezer.play();
 				toggleImage.src="images/sound.png";
 			} else {
-				game.game.freezer.pause();	
+				game.freezer.pause();	
 				$("#togglemusic")[0].src="images/nosound.png";
 			}
 		}
@@ -581,7 +581,7 @@ var levels = {
 				{type:"villain", name:"mechafreezer",x:870,y:175,calories:420},
 
 
-				{type:"hero", name:"strawberry",x:30,y:415},
+				{type:"hero", name:"Gokuson",x:30,y:415},
 				{type:"hero", name:"mrsatancabeza",x:80,y:405},
 				{type:"hero", name:"trunks",x:140,y:405},
 			]
