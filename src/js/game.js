@@ -175,7 +175,7 @@ var game = {
 			if(levelsUnlocked[i]==1){
 				html += '<input type="button" value="'+(i+1)+'">';
 			}else{
-				html += '<img src="images/candado.png" value="'+(i+1)+'" class="candado">'
+				html += '<input type="image" src="images/candado.png" value="'+(i+1)+'" class="candado">'
 			}
 		};
 		$('.gamelayer').hide();

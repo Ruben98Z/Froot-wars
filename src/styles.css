@@ -44,11 +44,14 @@
     border:0;
 }
 
-img.candado{
+input.candado{
     margin:20px;
-    width: 60px;
-    height: 60px;
+    width: 51px;
+    height: 51px;
     border:0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 220px;
 }
 
 
