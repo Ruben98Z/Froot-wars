@@ -76,10 +76,7 @@ var game = {
 		//Obtener el controlador para el lienzo de juego y el contexto
 		game.canvas = document.getElementById('gamecanvas');
 		game.context = game.canvas.getContext('2d');
-	},
-	//startScreen:function(){
-	//	game.
-	//},	  
+	},	  
 	startBackgroundMusic:function(){
 		var toggleImage = $("#togglemusic")[0];	
 		if(game.currentLevel.number==0){			
@@ -181,7 +178,6 @@ var game = {
 		$('.gamelayer').hide();
 		$('#levelselectscreen').html(html);
 		$('#levelselectscreen').show('slow');
-		//En el caso de que se haya pasado algun nivel se habilita el siguiente
 		// Establecer los controladores de eventos de clic de botÃ³n para cargar el nivel
 		$('#levelselectscreen input').click(function(){
 			if(levelsUnlocked[this.value-1] == 1){
